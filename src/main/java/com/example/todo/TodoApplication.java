@@ -9,7 +9,6 @@ public class TodoApplication {
 
     public static void main(String[] args) {
 
-        System.out.println("testtesttest");
         SpringApplication.run(TodoApplication.class, args);
 
     }
