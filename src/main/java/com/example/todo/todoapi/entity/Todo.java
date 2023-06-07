@@ -24,6 +24,11 @@ public class Todo {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String todoId;
 
+    private Integer number = 0;
+
+    private Long number2 = null;
+
+
     @Column(nullable = false, length = 30)
     private String title; // 제목
 
