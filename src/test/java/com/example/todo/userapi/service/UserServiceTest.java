@@ -30,7 +30,7 @@ class UserServiceTest {
         // param 2: 에러가 발생하는 상황을 전달
         assertThrows(RuntimeException.class,
                 () -> {
-                    userService.crete(UserRequestSignUpDTO.builder()
+                    userService.create(UserRequestSignUpDTO.builder()
                             .email(email)
                             .userName("ee")
                             .password("1234")

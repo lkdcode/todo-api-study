@@ -9,12 +9,13 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 @Builder
 public class UserRequestSignUpDTO {
+
     @NotBlank
     @Email
     private String email;
