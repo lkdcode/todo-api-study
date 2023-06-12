@@ -2,7 +2,9 @@ package com.example.todo.userapi.api;
 
 import com.example.todo.exception.DuplicateEmailException;
 import com.example.todo.exception.NoRegisteredArgumentException;
+import com.example.todo.userapi.dto.request.LoginRequestDTO;
 import com.example.todo.userapi.dto.request.UserRequestSignUpDTO;
+import com.example.todo.userapi.dto.response.LoginResponseDTO;
 import com.example.todo.userapi.dto.response.UserSignUpResponseDTO;
 import com.example.todo.userapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -60,6 +62,20 @@ public class UserController {
             log.warn("이메일 중복입니다.");
             return ResponseEntity.badRequest()
                     .body(ee.getMessage());
+        }
+    }
+
+    // 로그인 요청 처리
+    @PostMapping("/signin")
+    public ResponseEntity<?> signIn(
+            @Validated @RequestBody LoginRequestDTO dto
+    ) {
+        try {
+            LoginResponseDTO responseDTO = userService.authenticate(dto);
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
