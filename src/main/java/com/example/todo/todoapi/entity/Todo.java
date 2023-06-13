@@ -1,10 +1,13 @@
 package com.example.todo.todoapi.entity;
 
+import com.example.todo.userapi.entity.User;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.lang.reflect.Member;
 import java.time.LocalDateTime;
 
 @Setter
@@ -14,7 +17,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "todoId")
 @Builder
-
 @Entity
 @Table(name = "tbl_todo")
 public class Todo {
@@ -37,5 +39,8 @@ public class Todo {
     @CreationTimestamp
     private LocalDateTime createDate; // 등록 시간
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

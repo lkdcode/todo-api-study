@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 public class TodoController {
     private final TodoService todoService;
 
-
     // 할 일 등록 요청
     @PostMapping
     public ResponseEntity<?> createTodo(
