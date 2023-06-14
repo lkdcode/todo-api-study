@@ -49,7 +49,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 // 인가 정보 리스트
                 List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
 
-                authorityList.add(new SimpleGrantedAuthority(userInfo.getRole().toString()));
+                authorityList.add(new SimpleGrantedAuthority("ROLE_" + userInfo.getRole().toString()));
 
                 // 인증 완료 처리
                 // - 스프링 시큐리티에게 인증 정보를 전달해서 전역적으로 앱에서
@@ -92,7 +92,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         return null;
-
     }
 
 }
