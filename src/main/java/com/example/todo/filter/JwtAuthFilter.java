@@ -84,6 +84,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         // -- Authorization : Bearer ajskdflajsdlkfadsfjkl
         String bearerToken = request.getHeader("Authorization");
 
+        System.out.println("---------------------------------");
+        System.out.println(bearerToken);
+        System.out.println("---------------------------------");
         // 요청 헤더에서 가져온 토큰은 순수 토큰 값이 아니라
         // 앞에 Bearer 가 붙어 있으니 이것을 제거하는 작업
         if (StringUtils.hasText(bearerToken)

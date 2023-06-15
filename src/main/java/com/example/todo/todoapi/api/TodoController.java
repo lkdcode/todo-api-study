@@ -59,7 +59,7 @@ public class TodoController {
 
     // 할 일 삭제 요청
     @DeleteMapping("/{id}")
-//    @PreAuthorize("hasRole('ROLE_PREMIUM') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_PREMIUM') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteTodo(
             @AuthenticationPrincipal TokenUserInfo userInfo
             , @PathVariable("id") String todoId

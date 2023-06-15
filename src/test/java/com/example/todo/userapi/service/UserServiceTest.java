@@ -34,7 +34,7 @@ class UserServiceTest {
                             .email(email)
                             .userName("ee")
                             .password("1234")
-                            .build());
+                            .build(), "");
                 }
         );
 
