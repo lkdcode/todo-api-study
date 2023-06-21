@@ -2,6 +2,7 @@ package com.example.todo.userapi.service;
 
 import com.example.todo.auth.TokenProvider;
 import com.example.todo.auth.TokenUserInfo;
+import com.example.todo.aws.S3Service;
 import com.example.todo.exception.DuplicateEmailException;
 import com.example.todo.exception.NoRegisteredArgumentException;
 import com.example.todo.userapi.dto.request.LoginRequestDTO;
@@ -29,9 +30,10 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
     private final TokenProvider tokenProvider;
+    private final S3Service s3Service;
 
-    @Value("${upload.path}")
-    private String uploadRootPath;
+//    @Value("${upload.path}") 로컬 경로 이제 필요 없음.
+//    private String uploadRootPath;
 
     // 회원 가입 처리
     public UserSignUpResponseDTO create(
@@ -119,22 +121,25 @@ public class UserService {
     public String uploadProfileImage(MultipartFile originalFile) throws IOException {
 
         // 루트 디렉토리가 존재하는지 확인 후 존재하지 않으면 생성
-        File rootDir = new File(uploadRootPath);
-        if (!rootDir.exists()) rootDir.mkdir();
+//        File rootDir = new File(uploadRootPath);
+//        if (!rootDir.exists()) rootDir.mkdir();
 
         // 파일명을 유니크하게 변경
         String uniqueFileName = UUID.randomUUID() + "_" + originalFile.getOriginalFilename();
 
-
         // 파일을 저장
-        File uploadFile = new File(uploadRootPath + "/" + uniqueFileName);
+//        File uploadFile = new File(uploadRootPath + "/" + uniqueFileName);
+//        originalFile.transferTo(uploadFile);
 
-        originalFile.transferTo(uploadFile);
+        // 파일을 S3 버킷에 저장
+        String uploadUrl = s3Service.uploadToS3Bucket(originalFile.getBytes(), uniqueFileName);
 
-        return uniqueFileName;
+        return uploadUrl;
     }
 
     public String getProfilePath(String userId) {
-        return uploadRootPath + "/" + userRepository.findById(userId).get().getProfileImg();
+//        return uploadRootPath + "/" + userRepository.findById(userId).get().getProfileImg();
+        User user = userRepository.findById(userId).orElseThrow();
+        return user.getProfileImg();
     }
 }
